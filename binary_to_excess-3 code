@@ -1,0 +1,54 @@
+write a verilog code for bcd to excess-3 code.
+
+RTL CODE:-
+
+module bcdtoexcess3(a,b,c,d,w,x,y,z);
+input a,b,c,d;
+output w,x,y,z;
+assign w=(a|b&c|b&d);
+assign x=(~b&c|~b&d);
+assign y=(~c&~d|c&d);
+assign z=(~d);
+endmodule
+
+TEST BENCH:-
+
+module bcdtoexcess3_tb;
+
+	// Inputs
+	reg a;
+	reg b;
+	reg c;
+	reg d;
+
+	// Outputs
+	wire w;
+	wire x;
+	wire y;
+	wire z;
+
+	// Instantiate the Unit Under Test (UUT)
+	bcdtoexcess3 uut (
+		.a(a), 
+		.b(b), 
+		.c(c), 
+		.d(d), 
+		.w(w), 
+		.x(x), 
+		.y(y), 
+		.z(z)
+	);
+
+	initial
+		begin
+			$monitor("a=%b,b=%b,c=%b,d=%b,w=%b,x=%b,y=%b,z=%b",a,b,c,d,w,x,y,z);
+			#10 a=1'b0;
+			#20 b=1'b1;
+			#30 c=1'b1;
+			#40 d=1'b0;
+			#10;
+			$finish;
+		end
+endmodule
+		
+
